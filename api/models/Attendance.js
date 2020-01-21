@@ -4,8 +4,9 @@ const attendanceSchema = new mongoose.Schema(
   {
     status: {
       type: Boolean,
-      attendeeId: mongoose.Schema.Types.ObjectId
-    }
+      required: true
+    },
+    attendeeId: mongoose.Schema.Types.ObjectId
   },
   /**
    * Extra configuration for mongoose

@@ -26,7 +26,7 @@ const attendeeSchema = new mongoose.Schema(
       type: String,
       required: true
     },
-    additional: {
+    extra: {
       type: Object
     }
   },

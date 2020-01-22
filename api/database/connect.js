@@ -5,7 +5,11 @@ const mongoose = require('mongoose')
  */
 module.exports = uri => {
   return mongoose
-    .connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
+    .connect(uri, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+      useCreateIndex: true
+    })
     .then(() => console.log('Mongoose Database connected'))
     .catch(error => console.error('Database connection failed: ' + error))
 }

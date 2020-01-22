@@ -1,8 +1,8 @@
 const express = require('express')
 const bodyParser = require('body-parser')
 const passport = require('passport')
-const jwt = require('jsonwebtoken')
 require('./config/passport')
+const { login } = require('./config/auth')
 
 const app = express()
 
@@ -13,29 +13,7 @@ app.get('/', (req, res) => {
   res.json({ message: 'Hello World' })
 })
 
-app.post('/', (req, res, next) => {
-  passport.authenticate('local', (err, user, info) => {
-    if (err || !user)
-      return res.status(400).json({
-        message: 'Email or password is incorrect. Try again.',
-        error: err.message,
-        status: false
-      })
-
-    req.login(user, { session: false }, error => {
-      if (error) return next(error)
-      const { name, email, _id, username } = user
-      const token = jwt.sign(
-        { user: { _id, name, email, username } },
-        'jwt-secret'
-      )
-      res.json({
-        token,
-        status: true
-      })
-    })
-  })(req, res, next)
-})
+app.post('/', login)
 
 app.get(
   '/secret',

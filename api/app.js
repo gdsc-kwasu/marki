@@ -12,6 +12,10 @@ app.get('/', (req, res) => {
   })
 })
 
+// Attendee search route level.
 app.use('/search', require('./routes/search'))
+
+// Attendee routes
+app.use('/attendee', require('./routes/attendee'))
 
 module.exports = app

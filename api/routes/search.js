@@ -1,7 +1,5 @@
-const express = require('express')
+const router = require('express').Router()
 const _c = require('../controllers/searchController')
-
-const router = express.Router()
 
 router.get('/', _c.searchByName)
 

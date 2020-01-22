@@ -27,7 +27,11 @@ const userSchema = new mongoose.Schema(
    */
   { timestamps: true }
 )
-2
+
+/**
+ * Hash the password before saved to the DB.
+ *
+ */
 userSchema.pre('save', async function(next) {
   const hash = await bcrypt.hash(this.password, 10)
   this.password = hash
@@ -35,6 +39,11 @@ userSchema.pre('save', async function(next) {
   next()
 })
 
+/**
+ * Helper function on User model to verify if given
+ * password match the hashed password.
+ *
+ */
 userSchema.methods.verifyPassword = function(password) {
   const user = this
   return bcrypt.compare(password, user.password)

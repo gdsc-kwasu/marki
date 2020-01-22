@@ -16,6 +16,10 @@ const userSchema = new mongoose.Schema(
       type: String,
       unique: true,
       required: true
+    },
+    password: {
+      type: String,
+      required: true
     }
   },
   /**
@@ -25,7 +29,6 @@ const userSchema = new mongoose.Schema(
 )
 2
 userSchema.pre('save', async function(next) {
-  const user = this
   const hash = await bcrypt.hash(this.password, 10)
   this.password = hash
 
@@ -33,8 +36,8 @@ userSchema.pre('save', async function(next) {
 })
 
 userSchema.methods.verifyPassword = async function(password) {
-  const user = this
-  const compared = bcrypt.compare(password, user.password)
+  //const user = this
+  const compared = bcrypt.compare(password, this.password)
 
   return compared
 }
